@@ -1,0 +1,103 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Player Adapter Pattern - UML Diagrams</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #34495e;
+            margin-top: 30px;
+        }
+        .diagram {
+            text-align: center;
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #fafafa;
+        }
+        .diagram img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .description {
+            margin: 10px 0;
+            color: #555;
+            font-style: italic;
+        }
+        .tech-info {
+            background-color: #e8f4fd;
+            padding: 15px;
+            border-left: 4px solid #3498db;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Media Player Adapter Pattern - UML Diagrams</h1>
+        
+        <div class="tech-info">
+            <strong>Project Info:</strong><br>
+            Framework: .NET 8<br>
+            Language: C# 12.0<br>
+            Pattern: Adapter Design Pattern<br>
+            Testing: MSTest Framework
+        </div>
+
+        <h2>1. Class Diagram - Complete System Architecture</h2>
+        <div class="diagram">
+            <img src="UML_ClassDiagram.png" alt="Class Diagram - Media Player Adapter Pattern">
+            <div class="description">
+                Shows the complete class structure including interfaces, concrete classes, and test classes with their relationships and dependencies.
+            </div>
+        </div>
+
+        <h2>2. Sequence Diagram - Method Execution Flow</h2>
+        <div class="diagram">
+            <img src="UML_SequenceDiagram.png" alt="Sequence Diagram - Play Method Flow">
+            <div class="description">
+                Illustrates the sequence of method calls when a client uses the adapter to play media files, including validation steps.
+            </div>
+        </div>
+
+        <h2>3. Adapter Pattern Structure</h2>
+        <div class="diagram">
+            <img src="UML_AdapterPattern.png" alt="Adapter Pattern Structure">
+            <div class="description">
+                Demonstrates the classic Adapter pattern structure showing Target, Adapter, and Adaptee relationships.
+            </div>
+        </div>
+
+        <h2>Pattern Benefits</h2>
+        <ul>
+            <li><strong>Compatibility:</strong> Legacy code works with new interfaces without modification</li>
+            <li><strong>Flexibility:</strong> Multiple adapters can support different legacy systems</li>
+            <li><strong>Separation of Concerns:</strong> Adapter handles interface translation only</li>
+            <li><strong>Maintainability:</strong> Clean code with comprehensive documentation</li>
+        </ul>
+    </div>
+</body>
+</html>

@@ -1,0 +1,59 @@
+﻿@startuml MediaPlayerAdapterClassDiagram
+!theme plain
+skinparam classAttributeIconSize 0
+skinparam classFontStyle bold
+
+package "Individual_project" {
+    interface IMediaPlayer {
+        +Play(fileName: string): void
+    }
+    
+    class LegacyMediaPlayer {
+        +PlayFile(filePath: string): void
+    }
+    
+    class MediaPlayerAdapter {
+        -_legacyPlayer: LegacyMediaPlayer
+        +MediaPlayerAdapter(legacyPlayer: LegacyMediaPlayer)
+        +Play(fileName: string): void
+    }
+}
+
+package "Individual_project.Tests" {
+    class MediaPlayerTests <<TestClass>> {
+        +MediaPlayerAdapter_ImplementsIMediaPlayer(): void
+        +MediaPlayerAdapter_ThrowsArgumentNullException_WhenLegacyPlayerIsNull(): void
+        +MediaPlayerAdapter_Play_CallsLegacyPlayFile(): void
+        +MediaPlayerAdapter_Play_ThrowsArgumentNullException_WhenFileNameIsNull(): void
+        +MediaPlayerAdapter_Play_ThrowsArgumentException_WhenFileNameIsEmpty(): void
+        +LegacyMediaPlayer_PlayFile_AcceptsFileName(): void
+    }
+    
+    class TestLegacyMediaPlayer {
+        +PlayFileCalled: bool
+        +LastFileName: string?
+        +PlayFile(filePath: string): void
+    }
+}
+
+' Relationships
+IMediaPlayer <|-- MediaPlayerAdapter : implements
+MediaPlayerAdapter *-- LegacyMediaPlayer : contains
+LegacyMediaPlayer <|-- TestLegacyMediaPlayer : extends
+MediaPlayerTests ..> MediaPlayerAdapter : tests
+MediaPlayerTests ..> TestLegacyMediaPlayer : uses
+
+note right of MediaPlayerAdapter
+  Adapter Pattern:
+  - Converts LegacyMediaPlayer interface
+  - to IMediaPlayer interface
+  - Delegates calls to _legacyPlayer
+end note
+
+note bottom of TestLegacyMediaPlayer
+  Test Helper Class:
+  - Tracks method calls
+  - Verifies behavior
+end note
+
+@enduml

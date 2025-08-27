@@ -1,0 +1,31 @@
+﻿@startuml MediaPlayerSequenceDiagram
+!theme plain
+skinparam sequenceParticipant underline
+
+actor Client
+participant "adapter: MediaPlayerAdapter" as Adapter
+participant "_legacyPlayer: LegacyMediaPlayer" as Legacy
+
+Client -> Adapter: Play("song.mp3")
+activate Adapter
+
+Adapter -> Adapter: validate fileName != null
+Adapter -> Adapter: validate !string.IsNullOrWhiteSpace(fileName)
+
+Adapter -> Legacy: PlayFile("song.mp3")
+activate Legacy
+Legacy -> Legacy: Console.WriteLine("Playing (legacy): song.mp3")
+Legacy --> Adapter: return
+deactivate Legacy
+
+Adapter --> Client: return
+deactivate Adapter
+
+note right of Adapter
+  Adapter Pattern Flow:
+  1. Validate input parameters
+  2. Delegate to legacy system
+  3. Return to client
+end note
+
+@enduml

@@ -1,0 +1,32 @@
+﻿@startuml AdapterPatternStructure
+!theme plain
+
+rectangle "Client Code" as Client
+interface "Target\n<<IMediaPlayer>>" as Target {
+    +Play(fileName: string)
+}
+
+class "Adapter\n<<MediaPlayerAdapter>>" as Adapter {
+    -_legacyPlayer: LegacyMediaPlayer
+    +Play(fileName: string)
+}
+
+class "Adaptee\n<<LegacyMediaPlayer>>" as Adaptee {
+    +PlayFile(filePath: string)
+}
+
+Client --> Target : uses
+Target <|.. Adapter : implements
+Adapter --> Adaptee : delegates to
+
+note right of Adapter
+  Converts Play() calls
+  to PlayFile() calls
+end note
+
+note bottom of Adaptee
+  Existing legacy system
+  with different interface
+end note
+
+@enduml
