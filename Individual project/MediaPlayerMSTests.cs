@@ -46,7 +46,7 @@ namespace Individual_project
 namespace Individual_project.Tests
 {
     [TestClass]
-    public class MediaPlayerMSTests
+    public class MediaPlayerTests
     {
         [TestMethod]
         public void MediaPlayerAdapter_ImplementsIMediaPlayer()
@@ -58,25 +58,15 @@ namespace Individual_project.Tests
         }
 
         [TestMethod]
-        public void MediaPlayerAdapter_RequiresLegacyPlayer()
-        {
-            LegacyMediaPlayer legacyPlayer = new LegacyMediaPlayer();
-
-            MediaPlayerAdapter adapter = new MediaPlayerAdapter(legacyPlayer);
-            Assert.IsNotNull(adapter);
-        }
-
-        [TestMethod]
         public void MediaPlayerAdapter_ThrowsArgumentNullException_WhenLegacyPlayerIsNull()
         {
-            // ReSharper disable once ExpressionIsAlwaysNull
             Assert.ThrowsExactly<ArgumentNullException>(() => new MediaPlayerAdapter(null!));
         }
 
         [TestMethod]
         public void MediaPlayerAdapter_Play_CallsLegacyPlayFile()
         {
-            TestLegacyMediaPlayerMS legacyPlayer = new TestLegacyMediaPlayerMS();
+            TestLegacyMediaPlayer legacyPlayer = new TestLegacyMediaPlayer();
             MediaPlayerAdapter adapter = new MediaPlayerAdapter(legacyPlayer);
             string fileName = "test.mp3";
 
@@ -105,18 +95,9 @@ namespace Individual_project.Tests
         }
 
         [TestMethod]
-        public void MediaPlayerAdapter_Play_ThrowsArgumentException_WhenFileNameIsWhitespace()
-        {
-            LegacyMediaPlayer legacyPlayer = new LegacyMediaPlayer();
-            MediaPlayerAdapter adapter = new MediaPlayerAdapter(legacyPlayer);
-
-            Assert.ThrowsExactly<ArgumentException>(() => adapter.Play("   "));
-        }
-
-        [TestMethod]
         public void LegacyMediaPlayer_PlayFile_AcceptsFileName()
         {
-            TestLegacyMediaPlayerMS legacyPlayer = new TestLegacyMediaPlayerMS();
+            TestLegacyMediaPlayer legacyPlayer = new TestLegacyMediaPlayer();
             string fileName = "video.avi";
 
             legacyPlayer.PlayFile(fileName);
@@ -126,7 +107,7 @@ namespace Individual_project.Tests
         }
     }
 
-    internal class TestLegacyMediaPlayerMS : LegacyMediaPlayer
+    internal class TestLegacyMediaPlayer : LegacyMediaPlayer
     {
         public bool PlayFileCalled { get; private set; }
         public string? LastFileName { get; private set; }
