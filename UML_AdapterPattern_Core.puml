@@ -1,0 +1,98 @@
+﻿@startuml AdapterPattern_CoreClassDiagram
+!theme plain
+
+' Simplified UML 2.5 Class Diagram focusing on Adapter Pattern Core
+' Reference: https://www.uml-diagrams.org/uml-25-diagrams.html
+
+skinparam class {
+    BackgroundColor White
+    BorderColor Black
+    ArrowColor Black
+    FontStyle bold
+}
+
+skinparam interface {
+    BackgroundColor LightBlue
+    BorderColor Black
+    FontStyle bold
+}
+
+title "Adapter Design Pattern - Core Class Structure"
+
+' === CORE ADAPTER PATTERN CLASSES ===
+
+' Target Interface
+interface IMediaPlayer <<interface>> {
+    {abstract} +Play(fileName: string): void
+}
+
+' Adapter Class
+class MediaPlayerAdapter <<adapter>> {
+    ' Attributes
+    -_legacyPlayer: LegacyMediaPlayer
+    
+    ' Constructor
+    +MediaPlayerAdapter(legacyPlayer: LegacyMediaPlayer)
+    
+    ' Target interface method
+    +Play(fileName: string): void
+    
+    ' Internal validation
+    -ValidateInput(fileName: string): void
+}
+
+' Adaptee Class (Legacy System)
+class LegacyMediaPlayer <<adaptee>> {
+    ' Legacy interface method
+    +PlayFile(filePath: string): void
+}
+
+' Client representation
+class Client <<actor>> {
+    +UseMediaPlayer(): void
+}
+
+' === RELATIONSHIPS ===
+
+' Client uses Target interface
+Client --> IMediaPlayer : <<uses>>
+
+' Adapter realizes Target interface  
+IMediaPlayer <|.. MediaPlayerAdapter : <<realizes>>
+
+' Adapter has-a Adaptee (Composition)
+MediaPlayerAdapter *--> LegacyMediaPlayer : <<adapts>>
+
+' === COLLABORATION CONSTRAINTS ===
+
+note as PatternNote
+    **Adapter Pattern Collaboration:**
+    
+    1. Client calls Play() on IMediaPlayer
+    2. MediaPlayerAdapter validates input
+    3. Adapter delegates to LegacyMediaPlayer.PlayFile()
+    4. Legacy system performs actual work
+    
+    **Key Benefits:**
+    • Interface compatibility
+    • Legacy code reuse
+    • Separation of concerns
+end note
+
+PatternNote .. MediaPlayerAdapter
+PatternNote .. IMediaPlayer
+
+' === STEREOTYPES LEGEND ===
+
+note as StereotypeLegend
+    **UML Stereotypes Used:**
+    
+    <<interface>> - Contract definition
+    <<adapter>> - Pattern participant
+    <<adaptee>> - Legacy system
+    <<actor>> - External entity
+end note
+
+StereotypeLegend .. Client
+
+@enduml

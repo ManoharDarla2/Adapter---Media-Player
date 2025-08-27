@@ -3,101 +3,248 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Media Player Adapter Pattern - UML Diagrams</title>
+    <title>UML 2.5 Class Diagrams - Media Player Adapter Pattern</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 20px;
-            background-color: #f5f5f5;
+            background-color: #f8f9fa;
+            line-height: 1.6;
         }
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
         }
         h1 {
             color: #2c3e50;
             text-align: center;
-            border-bottom: 3px solid #3498db;
-            padding-bottom: 10px;
+            border-bottom: 4px solid #3498db;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
         }
         h2 {
             color: #34495e;
-            margin-top: 30px;
+            margin-top: 40px;
+            border-left: 5px solid #3498db;
+            padding-left: 15px;
+        }
+        h3 {
+            color: #2980b9;
+            margin-top: 25px;
         }
         .diagram {
             text-align: center;
-            margin: 20px 0;
-            padding: 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+            margin: 25px 0;
+            padding: 20px;
+            border: 2px solid #e8e8e8;
+            border-radius: 8px;
             background-color: #fafafa;
         }
         .diagram img {
             max-width: 100%;
             height: auto;
-            border: 1px solid #ccc;
-            border-radius: 4px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
         .description {
-            margin: 10px 0;
+            margin: 15px 0;
             color: #555;
             font-style: italic;
+            background-color: #f1f8ff;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #3498db;
         }
         .tech-info {
             background-color: #e8f4fd;
+            padding: 20px;
+            border-left: 5px solid #3498db;
+            margin: 25px 0;
+            border-radius: 5px;
+        }
+        .uml-features {
+            background-color: #fff3cd;
+            padding: 20px;
+            border-left: 5px solid #ffc107;
+            margin: 25px 0;
+            border-radius: 5px;
+        }
+        .reference-link {
+            background-color: #d1ecf1;
             padding: 15px;
-            border-left: 4px solid #3498db;
+            border-left: 5px solid #17a2b8;
             margin: 20px 0;
+            border-radius: 5px;
+        }
+        ul {
+            padding-left: 25px;
+        }
+        li {
+            margin: 8px 0;
+        }
+        .highlight {
+            background-color: #fff3cd;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Media Player Adapter Pattern - UML Diagrams</h1>
+        <h1>🎯 UML 2.5 Class Diagrams - Media Player Adapter Pattern</h1>
         
         <div class="tech-info">
-            <strong>Project Info:</strong><br>
-            Framework: .NET 8<br>
-            Language: C# 12.0<br>
-            Pattern: Adapter Design Pattern<br>
-            Testing: MSTest Framework
+            <h3>📋 Project Information</h3>
+            <strong>Framework:</strong> .NET 8<br>
+            <strong>Language:</strong> C# 12.0<br>
+            <strong>Design Pattern:</strong> Adapter Pattern (GoF)<br>
+            <strong>Testing Framework:</strong> MSTest<br>
+            <strong>UML Standard:</strong> UML 2.5 Compliant
         </div>
 
-        <h2>1. Class Diagram - Complete System Architecture</h2>
+        <div class="reference-link">
+            <h3>📚 UML Reference</h3>
+            <strong>Reference Documentation:</strong> 
+            <a href="https://www.uml-diagrams.org/uml-25-diagrams.html" target="_blank">
+                UML 2.5 Diagrams Overview - uml-diagrams.org
+            </a><br>
+            <em>All diagrams follow UML 2.5 specification standards for class diagrams</em>
+        </div>
+
+        <h2>📊 Enhanced UML 2.5 Class Diagram - Complete System</h2>
         <div class="diagram">
-            <img src="UML_ClassDiagram.png" alt="Class Diagram - Media Player Adapter Pattern">
+            <img src="UML_ClassDiagram_Enhanced.png" alt="Enhanced UML 2.5 Class Diagram">
             <div class="description">
-                Shows the complete class structure including interfaces, concrete classes, and test classes with their relationships and dependencies.
+                <strong>Comprehensive UML 2.5 compliant class diagram</strong> featuring:
+                • Complete package organization with stereotypes<br>
+                • Detailed method signatures with constraints<br>
+                • Proper UML 2.5 relationship notations<br>
+                • External dependencies and system classes<br>
+                • Pre/post conditions and class invariants
             </div>
         </div>
 
-        <h2>2. Sequence Diagram - Method Execution Flow</h2>
+        <h2>🎯 Core Adapter Pattern Structure</h2>
         <div class="diagram">
-            <img src="UML_SequenceDiagram.png" alt="Sequence Diagram - Play Method Flow">
+            <img src="UML_AdapterPattern_Core.png" alt="Core Adapter Pattern Class Diagram">
             <div class="description">
-                Illustrates the sequence of method calls when a client uses the adapter to play media files, including validation steps.
+                <strong>Focused view of the Adapter pattern core</strong> highlighting:
+                • Target interface (IMediaPlayer)<br>
+                • Adapter implementation (MediaPlayerAdapter)<br>
+                • Adaptee legacy system (LegacyMediaPlayer)<br>
+                • Client interaction patterns<br>
+                • Clear collaboration constraints
             </div>
         </div>
 
-        <h2>3. Adapter Pattern Structure</h2>
+        <h2>🔍 Detailed Implementation View</h2>
         <div class="diagram">
-            <img src="UML_AdapterPattern.png" alt="Adapter Pattern Structure">
+            <img src="UML_DetailedImplementation.png" alt="Detailed Implementation Class Diagram">
             <div class="description">
-                Demonstrates the classic Adapter pattern structure showing Target, Adapter, and Adaptee relationships.
+                <strong>Implementation-focused diagram</strong> showing:
+                • Complete method signatures with visibility<br>
+                • Detailed constraints and pre/post conditions<br>
+                • Test infrastructure architecture<br>
+                • Exception handling relationships<br>
+                • Comprehensive attribute specifications
             </div>
         </div>
 
-        <h2>Pattern Benefits</h2>
+        <div class="grid">
+            <div>
+                <h2>📐 Additional UML Diagrams</h2>
+                <h3>Sequence Diagram</h3>
+                <div class="diagram">
+                    <img src="UML_SequenceDiagram.png" alt="Sequence Diagram" style="max-height: 300px;">
+                    <div class="description">
+                        Method execution flow and interaction timeline
+                    </div>
+                </div>
+            </div>
+            
+            <div>
+                <h3>Pattern Structure</h3>
+                <div class="diagram">
+                    <img src="UML_AdapterPattern.png" alt="Adapter Pattern Structure" style="max-height: 300px;">
+                    <div class="description">
+                        Classic GoF Adapter pattern relationship view
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="uml-features">
+            <h3>🎨 UML 2.5 Features Demonstrated</h3>
+            <ul>
+                <li><span class="highlight">Stereotypes:</span> &lt;&lt;interface&gt;&gt;, &lt;&lt;concrete&gt;&gt;, &lt;&lt;TestClass&gt;&gt;, &lt;&lt;external&gt;&gt;</li>
+                <li><span class="highlight">Visibility:</span> Public (+), Private (-), Protected (#)</li>
+                <li><span class="highlight">Properties:</span> {readonly}, {virtual}, {override}, {static}</li>
+                <li><span class="highlight">Relationships:</span> Realization, Composition, Inheritance, Dependency</li>
+                <li><span class="highlight">Multiplicities:</span> "1" to "1" relationships with role names</li>
+                <li><span class="highlight">Constraints:</span> Pre/post conditions, class invariants</li>
+                <li><span class="highlight">Packages:</span> Namespace organization with dependencies</li>
+                <li><span class="highlight">Notes:</span> Pattern explanations and behavioral constraints</li>
+            </ul>
+        </div>
+
+        <h2>🏗️ Pattern Analysis</h2>
+        
+        <h3>Adapter Pattern Components</h3>
         <ul>
-            <li><strong>Compatibility:</strong> Legacy code works with new interfaces without modification</li>
-            <li><strong>Flexibility:</strong> Multiple adapters can support different legacy systems</li>
-            <li><strong>Separation of Concerns:</strong> Adapter handles interface translation only</li>
-            <li><strong>Maintainability:</strong> Clean code with comprehensive documentation</li>
+            <li><strong>Target (IMediaPlayer):</strong> Defines domain-specific interface for Client</li>
+            <li><strong>Adapter (MediaPlayerAdapter):</strong> Adapts Adaptee interface to Target interface</li>
+            <li><strong>Adaptee (LegacyMediaPlayer):</strong> Existing interface that needs adapting</li>
+            <li><strong>Client (MediaPlayerTests):</strong> Collaborates with objects via Target interface</li>
         </ul>
+
+        <h3>UML 2.5 Relationship Types Used</h3>
+        <ul>
+            <li><strong>Realization (⟨|⋯):</strong> MediaPlayerAdapter implements IMediaPlayer</li>
+            <li><strong>Composition (◆—):</strong> MediaPlayerAdapter contains LegacyMediaPlayer</li>
+            <li><strong>Inheritance (⟨|—):</strong> TestLegacyMediaPlayer extends LegacyMediaPlayer</li>
+            <li><strong>Dependency (⋯>):</strong> Usage relationships and exception throwing</li>
+        </ul>
+
+        <h3>Benefits Demonstrated</h3>
+        <ul>
+            <li><strong>Interface Compatibility:</strong> Legacy system works with modern interface</li>
+            <li><strong>Code Reuse:</strong> Existing LegacyMediaPlayer functionality preserved</li>
+            <li><strong>Separation of Concerns:</strong> Clear responsibility boundaries</li>
+            <li><strong>Testability:</strong> Comprehensive test coverage with mock objects</li>
+            <li><strong>Extensibility:</strong> Easy to add new adapters for different legacy systems</li>
+        </ul>
+
+        <div class="tech-info">
+            <h3>📁 File Organization</h3>
+            <strong>PlantUML Sources:</strong><br>
+            • UML_ClassDiagram.puml (Enhanced version)<br>
+            • UML_AdapterPattern_Core.puml (Core pattern)<br>
+            • UML_DetailedImplementation.puml (Implementation details)<br><br>
+            
+            <strong>Generated PNG Images:</strong><br>
+            • UML_ClassDiagram_Enhanced.png<br>
+            • UML_AdapterPattern_Core.png<br>
+            • UML_DetailedImplementation.png<br><br>
+            
+            <strong>Generation Script:</strong> Generate-UML-PNG.ps1
+        </div>
     </div>
 </body>
 </html>

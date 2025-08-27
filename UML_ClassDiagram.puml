@@ -1,59 +1,163 @@
-﻿@startuml MediaPlayerAdapterClassDiagram
+﻿@startuml MediaPlayerAdapterClassDiagram_Enhanced
 !theme plain
-skinparam classAttributeIconSize 0
-skinparam classFontStyle bold
 
-package "Individual_project" {
-    interface IMediaPlayer {
-        +Play(fileName: string): void
+' UML 2.5 compliant class diagram for Media Player Adapter Pattern
+' Reference: https://www.uml-diagrams.org/uml-25-diagrams.html
+
+' Styling for better UML compliance
+skinparam class {
+    BackgroundColor White
+    BorderColor Black
+    ArrowColor Black
+    AttributeIconSize 0
+    FontStyle bold
+}
+
+skinparam interface {
+    BackgroundColor LightBlue
+    BorderColor Black
+    FontStyle bold
+}
+
+skinparam stereotype {
+    CBackgroundColor Yellow
+    CBorderColor Black
+}
+
+' Main Production Code Package
+package "Individual_project" <<folder>> {
+    
+    ' Target Interface (UML 2.5 interface notation)
+    interface IMediaPlayer <<interface>> {
+        {abstract} +Play(fileName: string): void
     }
     
-    class LegacyMediaPlayer {
-        +PlayFile(filePath: string): void
+    ' Adaptee Class (Legacy System)
+    class LegacyMediaPlayer <<concrete>> {
+        ' Operations
+        +PlayFile(filePath: string): void {virtual}
     }
     
-    class MediaPlayerAdapter {
-        -_legacyPlayer: LegacyMediaPlayer
-        +MediaPlayerAdapter(legacyPlayer: LegacyMediaPlayer)
+    ' Adapter Class (Core Pattern Implementation)
+    class MediaPlayerAdapter <<concrete>> {
+        ' Attributes
+        -_legacyPlayer: LegacyMediaPlayer {readonly}
+        
+        ' Operations
+        +MediaPlayerAdapter(legacyPlayer: LegacyMediaPlayer) <<constructor>>
         +Play(fileName: string): void
+        
+        ' Private operations (validation)
+        -ValidateFileName(fileName: string): void
     }
 }
 
-package "Individual_project.Tests" {
+' Test Package
+package "Individual_project.Tests" <<folder>> {
+    
+    ' Test Class with MSTest stereotype
     class MediaPlayerTests <<TestClass>> {
-        +MediaPlayerAdapter_ImplementsIMediaPlayer(): void
-        +MediaPlayerAdapter_ThrowsArgumentNullException_WhenLegacyPlayerIsNull(): void
-        +MediaPlayerAdapter_Play_CallsLegacyPlayFile(): void
-        +MediaPlayerAdapter_Play_ThrowsArgumentNullException_WhenFileNameIsNull(): void
-        +MediaPlayerAdapter_Play_ThrowsArgumentException_WhenFileNameIsEmpty(): void
-        +LegacyMediaPlayer_PlayFile_AcceptsFileName(): void
+        ' Test Methods (UML 2.5 operation notation)
+        +MediaPlayerAdapter_ImplementsIMediaPlayer(): void <<TestMethod>>
+        +MediaPlayerAdapter_ThrowsArgumentNullException_WhenLegacyPlayerIsNull(): void <<TestMethod>>
+        +MediaPlayerAdapter_Play_CallsLegacyPlayFile(): void <<TestMethod>>
+        +MediaPlayerAdapter_Play_ThrowsArgumentNullException_WhenFileNameIsNull(): void <<TestMethod>>
+        +MediaPlayerAdapter_Play_ThrowsArgumentException_WhenFileNameIsEmpty(): void <<TestMethod>>
+        +LegacyMediaPlayer_PlayFile_AcceptsFileName(): void <<TestMethod>>
     }
     
-    class TestLegacyMediaPlayer {
-        +PlayFileCalled: bool
-        +LastFileName: string?
-        +PlayFile(filePath: string): void
+    ' Test Helper Class
+    class TestLegacyMediaPlayer <<mock>> {
+        ' Attributes for test verification
+        +PlayFileCalled: bool {readonly}
+        +LastFileName: string? {readonly}
+        
+        ' Operations
+        +PlayFile(filePath: string): void {override}
     }
 }
 
-' Relationships
-IMediaPlayer <|-- MediaPlayerAdapter : implements
-MediaPlayerAdapter *-- LegacyMediaPlayer : contains
-LegacyMediaPlayer <|-- TestLegacyMediaPlayer : extends
-MediaPlayerTests ..> MediaPlayerAdapter : tests
-MediaPlayerTests ..> TestLegacyMediaPlayer : uses
+' External Dependencies (UML 2.5 notation)
+package "System" <<external>> {
+    class ArgumentNullException <<exception>>
+    class ArgumentException <<exception>>
+    class Console <<static>>
+}
+
+package "Microsoft.VisualStudio.TestTools.UnitTesting" <<external>> {
+    class Assert <<static>>
+    interface TestMethodAttribute <<attribute>>
+    interface TestClassAttribute <<attribute>>
+}
+
+' === RELATIONSHIPS (UML 2.5 compliant) ===
+
+' Realization (Interface Implementation)
+IMediaPlayer <|.. MediaPlayerAdapter : <<realizes>>
+
+' Composition (Strong ownership)
+MediaPlayerAdapter *-- LegacyMediaPlayer : <<contains>>
+
+' Inheritance (Generalization)
+LegacyMediaPlayer <|-- TestLegacyMediaPlayer : <<extends>>
+
+' Dependency (Uses relationship)
+MediaPlayerTests ..> MediaPlayerAdapter : <<uses>>
+MediaPlayerTests ..> TestLegacyMediaPlayer : <<creates>>
+MediaPlayerTests ..> Assert : <<uses>>
+
+' Exception Dependencies
+MediaPlayerAdapter ..> ArgumentNullException : <<throws>>
+MediaPlayerAdapter ..> ArgumentException : <<throws>>
+LegacyMediaPlayer ..> Console : <<uses>>
+
+' Multiplicity and Role Names
+MediaPlayerAdapter "1" *-- "1" LegacyMediaPlayer : -_legacyPlayer
+
+' === CONSTRAINTS AND NOTES ===
 
 note right of MediaPlayerAdapter
-  Adapter Pattern:
-  - Converts LegacyMediaPlayer interface
-  - to IMediaPlayer interface
-  - Delegates calls to _legacyPlayer
+    <<Adapter Pattern>>
+    
+    **Responsibilities:**
+    • Adapts LegacyMediaPlayer to IMediaPlayer
+    • Validates input parameters
+    • Delegates to legacy implementation
+    
+    **Constraints:**
+    {_legacyPlayer != null}
+    {fileName != null && !string.IsNullOrWhiteSpace(fileName)}
 end note
 
-note bottom of TestLegacyMediaPlayer
-  Test Helper Class:
-  - Tracks method calls
-  - Verifies behavior
+note bottom of LegacyMediaPlayer
+    <<Adaptee>>
+    
+    **Legacy System:**
+    • Existing implementation
+    • Different interface contract
+    • Console-based output
 end note
+
+note top of IMediaPlayer
+    <<Target Interface>>
+    
+    **Contract:**
+    • Modern media player interface
+    • Standardized method signature
+end note
+
+note left of TestLegacyMediaPlayer
+    <<Test Double>>
+    
+    **Test Capabilities:**
+    • Tracks method invocations
+    • Captures parameters
+    • Enables verification
+end note
+
+' === PACKAGE DEPENDENCIES ===
+Individual_project ..> System : <<imports>>
+Individual_project.Tests ..> Individual_project : <<imports>>
+Individual_project.Tests ..> Microsoft.VisualStudio.TestTools.UnitTesting : <<imports>>
 
 @enduml
