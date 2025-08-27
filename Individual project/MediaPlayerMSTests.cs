@@ -67,11 +67,10 @@ namespace Individual_project.Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void MediaPlayerAdapter_ThrowsArgumentNullException_WhenLegacyPlayerIsNull()
         {
             // ReSharper disable once ExpressionIsAlwaysNull
-            _ = new MediaPlayerAdapter(null!);
+            Assert.ThrowsExactly<ArgumentNullException>(() => new MediaPlayerAdapter(null!));
         }
 
         [TestMethod]
@@ -93,7 +92,7 @@ namespace Individual_project.Tests
             LegacyMediaPlayer legacyPlayer = new LegacyMediaPlayer();
             MediaPlayerAdapter adapter = new MediaPlayerAdapter(legacyPlayer);
 
-            Assert.ThrowsException<ArgumentNullException>(() => adapter.Play(null!));
+            Assert.ThrowsExactly<ArgumentNullException>(() => adapter.Play(null!));
         }
 
         [TestMethod]
@@ -102,7 +101,7 @@ namespace Individual_project.Tests
             LegacyMediaPlayer legacyPlayer = new LegacyMediaPlayer();
             MediaPlayerAdapter adapter = new MediaPlayerAdapter(legacyPlayer);
 
-            Assert.ThrowsException<ArgumentException>(() => adapter.Play(""));
+            Assert.ThrowsExactly<ArgumentException>(() => adapter.Play(""));
         }
 
         [TestMethod]
@@ -111,7 +110,7 @@ namespace Individual_project.Tests
             LegacyMediaPlayer legacyPlayer = new LegacyMediaPlayer();
             MediaPlayerAdapter adapter = new MediaPlayerAdapter(legacyPlayer);
 
-            Assert.ThrowsException<ArgumentException>(() => adapter.Play("   "));
+            Assert.ThrowsExactly<ArgumentException>(() => adapter.Play("   "));
         }
 
         [TestMethod]
