@@ -1,6 +1,48 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
+namespace Individual_project
+{
+    // Main classes for the adapter pattern
+    public interface IMediaPlayer
+    {
+        void Play(string fileName);
+    }
+
+    public class LegacyMediaPlayer
+    {
+        public virtual void PlayFile(string filePath)
+        {
+            Console.WriteLine($"Playing (legacy): {filePath}");
+        }
+    }
+
+    public class MediaPlayerAdapter : IMediaPlayer
+    {
+        private readonly LegacyMediaPlayer _legacyPlayer;
+
+        public MediaPlayerAdapter(LegacyMediaPlayer legacyPlayer)
+        {
+            _legacyPlayer = legacyPlayer ?? throw new ArgumentNullException(nameof(legacyPlayer));
+        }
+
+        public void Play(string fileName)
+        {
+            if (fileName == null)
+            {
+                throw new ArgumentNullException(nameof(fileName));
+            }
+
+            if (string.IsNullOrWhiteSpace(fileName))
+            {
+                throw new ArgumentException("File name cannot be empty or whitespace.", nameof(fileName));
+            }
+
+            _legacyPlayer.PlayFile(fileName);
+        }
+    }
+}
+
 namespace Individual_project.Tests
 {
     [TestClass]
@@ -25,9 +67,11 @@ namespace Individual_project.Tests
         }
 
         [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
         public void MediaPlayerAdapter_ThrowsArgumentNullException_WhenLegacyPlayerIsNull()
         {
-            Assert.ThrowsExactly<ArgumentNullException>(() => new MediaPlayerAdapter(null!));
+            // ReSharper disable once ExpressionIsAlwaysNull
+            _ = new MediaPlayerAdapter(null!);
         }
 
         [TestMethod]
@@ -49,7 +93,7 @@ namespace Individual_project.Tests
             LegacyMediaPlayer legacyPlayer = new LegacyMediaPlayer();
             MediaPlayerAdapter adapter = new MediaPlayerAdapter(legacyPlayer);
 
-            Assert.ThrowsExactly<ArgumentNullException>(() => adapter.Play(null!));
+            Assert.ThrowsException<ArgumentNullException>(() => adapter.Play(null!));
         }
 
         [TestMethod]
@@ -58,7 +102,16 @@ namespace Individual_project.Tests
             LegacyMediaPlayer legacyPlayer = new LegacyMediaPlayer();
             MediaPlayerAdapter adapter = new MediaPlayerAdapter(legacyPlayer);
 
-            Assert.ThrowsExactly<ArgumentException>(() => adapter.Play(""));
+            Assert.ThrowsException<ArgumentException>(() => adapter.Play(""));
+        }
+
+        [TestMethod]
+        public void MediaPlayerAdapter_Play_ThrowsArgumentException_WhenFileNameIsWhitespace()
+        {
+            LegacyMediaPlayer legacyPlayer = new LegacyMediaPlayer();
+            MediaPlayerAdapter adapter = new MediaPlayerAdapter(legacyPlayer);
+
+            Assert.ThrowsException<ArgumentException>(() => adapter.Play("   "));
         }
 
         [TestMethod]
