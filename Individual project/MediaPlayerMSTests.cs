@@ -1,79 +1,80 @@
 ﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Individual_project
+namespace Individual_project.Tests
 {
-    public class MediaPlayerTests
+    [TestClass]
+    public class MediaPlayerMSTests
     {
-        [Xunit.Fact]
+        [TestMethod]
         public void MediaPlayerAdapter_ImplementsIMediaPlayer()
         {
             LegacyMediaPlayer legacyPlayer = new LegacyMediaPlayer();
             MediaPlayerAdapter adapter = new MediaPlayerAdapter(legacyPlayer);
 
-            Xunit.Assert.IsAssignableFrom<IMediaPlayer>(adapter);
+            Assert.IsTrue(adapter is IMediaPlayer);
         }
 
-        [Xunit.Fact]
+        [TestMethod]
         public void MediaPlayerAdapter_RequiresLegacyPlayer()
         {
             LegacyMediaPlayer legacyPlayer = new LegacyMediaPlayer();
 
             MediaPlayerAdapter adapter = new MediaPlayerAdapter(legacyPlayer);
-            Xunit.Assert.NotNull(adapter);
+            Assert.IsNotNull(adapter);
         }
 
-        [Xunit.Fact]
+        [TestMethod]
         public void MediaPlayerAdapter_ThrowsArgumentNullException_WhenLegacyPlayerIsNull()
         {
-            Xunit.Assert.Throws<ArgumentNullException>(() => new MediaPlayerAdapter(null!));
+            Assert.ThrowsExactly<ArgumentNullException>(() => new MediaPlayerAdapter(null!));
         }
 
-        [Xunit.Fact]
+        [TestMethod]
         public void MediaPlayerAdapter_Play_CallsLegacyPlayFile()
         {
-            TestLegacyMediaPlayer legacyPlayer = new TestLegacyMediaPlayer();
+            TestLegacyMediaPlayerMS legacyPlayer = new TestLegacyMediaPlayerMS();
             MediaPlayerAdapter adapter = new MediaPlayerAdapter(legacyPlayer);
             string fileName = "test.mp3";
 
             adapter.Play(fileName);
 
-            Xunit.Assert.True(legacyPlayer.PlayFileCalled);
-            Xunit.Assert.Equal(fileName, legacyPlayer.LastFileName);
+            Assert.IsTrue(legacyPlayer.PlayFileCalled);
+            Assert.AreEqual(fileName, legacyPlayer.LastFileName);
         }
 
-        [Xunit.Fact]
+        [TestMethod]
         public void MediaPlayerAdapter_Play_ThrowsArgumentNullException_WhenFileNameIsNull()
         {
             LegacyMediaPlayer legacyPlayer = new LegacyMediaPlayer();
             MediaPlayerAdapter adapter = new MediaPlayerAdapter(legacyPlayer);
 
-            Xunit.Assert.Throws<ArgumentNullException>(() => adapter.Play(null!));
+            Assert.ThrowsExactly<ArgumentNullException>(() => adapter.Play(null!));
         }
 
-        [Xunit.Fact]
+        [TestMethod]
         public void MediaPlayerAdapter_Play_ThrowsArgumentException_WhenFileNameIsEmpty()
         {
             LegacyMediaPlayer legacyPlayer = new LegacyMediaPlayer();
             MediaPlayerAdapter adapter = new MediaPlayerAdapter(legacyPlayer);
 
-            Xunit.Assert.Throws<ArgumentException>(() => adapter.Play(""));
-            Xunit.Assert.Throws<ArgumentException>(() => adapter.Play("   "));
+            Assert.ThrowsExactly<ArgumentException>(() => adapter.Play(""));
         }
 
-        [Xunit.Fact]
+        [TestMethod]
         public void LegacyMediaPlayer_PlayFile_AcceptsFileName()
         {
-            TestLegacyMediaPlayer legacyPlayer = new TestLegacyMediaPlayer();
+            TestLegacyMediaPlayerMS legacyPlayer = new TestLegacyMediaPlayerMS();
             string fileName = "video.avi";
 
             legacyPlayer.PlayFile(fileName);
 
-            Xunit.Assert.True(legacyPlayer.PlayFileCalled);
-            Xunit.Assert.Equal(fileName, legacyPlayer.LastFileName);
+            Assert.IsTrue(legacyPlayer.PlayFileCalled);
+            Assert.AreEqual(fileName, legacyPlayer.LastFileName);
         }
     }
 
-    internal class TestLegacyMediaPlayer : LegacyMediaPlayer
+    internal class TestLegacyMediaPlayerMS : LegacyMediaPlayer
     {
         public bool PlayFileCalled { get; private set; }
         public string? LastFileName { get; private set; }

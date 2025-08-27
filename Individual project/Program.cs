@@ -27,10 +27,14 @@ namespace Individual_project
         public void Play(string fileName)
         {
             if (fileName == null)
+            {
                 throw new ArgumentNullException(nameof(fileName));
-            
+            }
+
             if (string.IsNullOrWhiteSpace(fileName))
+            {
                 throw new ArgumentException("File name cannot be empty or whitespace.", nameof(fileName));
+            }
 
             _legacyPlayer.PlayFile(fileName);
         }
@@ -42,19 +46,19 @@ namespace Individual_project
         {
             Console.WriteLine("Media Player Adapter Pattern Demo");
             Console.WriteLine("==================================");
-            
+
             try
             {
                 var legacyPlayer = new LegacyMediaPlayer();
                 IMediaPlayer adaptedPlayer = new MediaPlayerAdapter(legacyPlayer);
-                
+
                 Console.WriteLine("\nUsing adapted legacy player:");
                 adaptedPlayer.Play("song.mp3");
                 adaptedPlayer.Play("movie.mp4");
-                
+
                 Console.WriteLine("\nDirect legacy player usage:");
                 legacyPlayer.PlayFile("oldformat.wav");
-                
+
                 Console.WriteLine("\nDemo completed successfully!");
             }
             catch (Exception ex)
