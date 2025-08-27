@@ -45,7 +45,7 @@ This project defines a media player adapter system. The adapter is initialized w
 4. **Program** - Demonstrates the pattern in action
 
 ## UML Diagram
-![uml_diagram](/UML_diagram.png_)
+![uml_diagram](/UML_diagram.png)
 
 **Detailed Class Structure:**
 
